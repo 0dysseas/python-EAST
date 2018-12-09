@@ -1,9 +1,14 @@
 import argparse, sys
 import cv2 as cv
 
+
+# Check if the input is empty
+def CV_assert(model):
+  assert (len(model) > 0), 'Model is empty.'
+
 # Parses the command line arguments
 def parse_cli_arguments():
-  parser = argparse.ArgumentParser(description='Tensorflow implementation of EAST: An efficient and Accurate Scene Text Detector')
+  parser = argparse.ArgumentParser(description='Use this script to run TensorFlow implementation (https://github.com/argman/EAST) of "EAST: An Efficient and Accurate Scene Text Detector (https://arxiv.org/abs/1704.03155v2)");')
 
   parser.add_argument('-i', help='| Path to input image or video file. Skip this argument to capture frames from a camera.',
                       type=str)
@@ -31,10 +36,15 @@ def parse_cli_arguments():
 
 
 if __name__ == '__main__':
+  #print(dir(cv))
+
   # Parse command line arguments
   conf_threshold, nms_threshold, width, height, model = parse_cli_arguments()
   
+  CV_assert(model)
 
+  #Load EAST network
+  net = cv.dnn.readNet(model)
 
 
 
