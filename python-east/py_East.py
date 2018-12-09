@@ -2,11 +2,12 @@ import argparse, sys
 import cv2 as cv
 
 
-# Check if the input is empty
+#Check if the model is empty
 def CV_assert(model):
   assert (len(model) > 0), 'Model is empty.'
 
-# Parses the command line arguments
+
+#Parses the command line arguments
 def parse_cli_arguments():
   parser = argparse.ArgumentParser(description='Use this script to run TensorFlow implementation (https://github.com/argman/EAST) of "EAST: An Efficient and Accurate Scene Text Detector (https://arxiv.org/abs/1704.03155v2)");')
 
@@ -23,31 +24,43 @@ def parse_cli_arguments():
   parser.add_argument('-nms', help='| 0.4 | Non-maximum suppression threshold.',
                       type=float)
   
-  # Show help message and exit if no arguments are passed
+  #Show help message and exit if no arguments are passed
   if len(sys.argv) == 1:
     parser.print_help()
     parser.exit()
 
   args = parser.parse_args()
 
-  return args.thr, args.nms, args.width, args.height, args.model
+  return args.i, args.thr, args.nms, args.width, args.height, args.model
 
 
 
 
 if __name__ == '__main__':
-  #print(dir(cv))
+  #print(dir(cv.VideoCapture))
+  win_name = 'EAST: An efficient and Accurate Scene Text Detector'
+  outnames = ['feature_fusion/Conv_7/Sigmoid', 'feature_fustion/concat_3']
 
-  # Parse command line arguments
-  conf_threshold, nms_threshold, width, height, model = parse_cli_arguments()
+  #Parse command line arguments
+  inp, conf_threshold, nms_threshold, width, height, model = parse_cli_arguments()
   
   CV_assert(model)
 
   #Load EAST network
   net = cv.dnn.readNet(model)
+  
+  #Create the VideoCapture object and capture the image or the video feed
+  cap = cv.VideoCapture()
+  if inp is not None:
+    cap.open(inp)
+  else:
+    cap.open(0)
+
+  #Create the window
+  cv.namedWindow(win_name, WINDOW_NORMAL)
 
 
-
+  
 
 
 
