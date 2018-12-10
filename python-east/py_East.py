@@ -59,10 +59,15 @@ if __name__ == '__main__':
   #Create the window
   cv.namedWindow(win_name, WINDOW_NORMAL)
 
-
-  
-
-
+  while cv.waitKey(1) < 0:
+    #Read frame
+    has_frame, frame = cap.read()
+    if not has_frame:
+      cv.waitKey()
+      break
+    
+    #Create 4 dimensional blob from frame
+    blob= cv.dnn.blobFromImage(frame, 1, (width, height), (123.68, 116.78, 103.94), swapRB=True, crop=False)
 
 
 
