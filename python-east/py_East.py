@@ -33,7 +33,8 @@ def parse_cli_arguments():
 
   return args.i, args.thr, args.nms, args.width, args.height, args.model
 
-
+def decode():
+  pass
 
 
 if __name__ == '__main__':
@@ -67,8 +68,14 @@ if __name__ == '__main__':
       break
     
     #Create 4 dimensional blob from frame
-    blob= cv.dnn.blobFromImage(frame, 1, (width, height), (123.68, 116.78, 103.94), swapRB=True, crop=False)
+    blob = cv.dnn.blobFromImage(frame, 1, (width, height), (123.68, 116.78, 103.94), swapRB=True, crop=False)
 
+    #Pass the blob to the network and forward propagate
+    net.setInput(blob)
+    scores, geometry = net.forward(outnames)
+    
+    #Decode predicted bounding boxes 
+    decode()
 
 
 
