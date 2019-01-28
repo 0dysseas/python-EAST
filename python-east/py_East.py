@@ -74,8 +74,11 @@ if __name__ == '__main__':
     net.setInput(blob)
     scores, geometry = net.forward(outnames)
     
-    #Decode predicted bounding boxes 
-    decode()
+    #Decode predicted bounding boxes
+
+    #boxes is a list of Rotated Rectangles
+    #confidences is a list of float numbers
+    decode(scores,geometry,conf_threshold,boxes,confidences)
 
 
 
