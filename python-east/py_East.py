@@ -76,7 +76,8 @@ if __name__ == '__main__':
     
     #Decode predicted bounding boxes
 
-    #boxes is a list of Rotated Rectangles
+    #TODO-me: boxes is a list of Rotated Rectangles in C++ but not implemented in Python..
+    #I have to implement a function that will return rotated rectangles
     #confidences is a list of float numbers
     decode(scores,geometry,conf_threshold,boxes,confidences)
 
